@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import { useState } from "react";
 export const Counter = () => {
   const [count, setCount] = useState(0);
@@ -12,7 +13,9 @@ export const Counter = () => {
         value={amount}
         onChange={(e) => setAmount(parseInt(e.target.value))}
       />
-      <button onClick={() => setCount(amount)}>Set</button>
+      <Tooltip title="Set value">
+        <button onClick={() => setCount(amount)}>Set</button>
+      </Tooltip>
     </div>
   );
 };

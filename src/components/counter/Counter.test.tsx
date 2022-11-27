@@ -13,7 +13,7 @@ describe("renders component correctly", () => {
     const incrBtn = screen.getByRole("button", { name: "Increment" });
     expect(incrBtn).toBeInTheDocument();
   });
-  it("should render set button", () => {
+  it.skip("should render set button", () => {
     render(<Counter />);
     const setBtn = screen.getByRole("button", { name: "Set" });
     expect(setBtn).toBeInTheDocument();
@@ -48,8 +48,20 @@ describe("renders component correctly", () => {
   });
   //   tooltip assignment hove and unhover 3 cases
   // 1.tooltip should to be in the doc
-  // 2. when user hovers the btn tesh should show
+  // 2. when user hovers the btn text should show
   // 3.tooltip in the doc
+  it("tooltip to be in the document", () => {
+    render(<Counter />);
+    const toolTip = screen.getByLabelText("Set value");
+    expect(toolTip).toBeInTheDocument();
+  });
+  it("tooltip to show text upon hover", () => {
+    userEvent.setup();
+    render(<Counter />);
+    const toolTip = screen.getByLabelText("Set value");
+    userEvent.hover(toolTip);
+    expect(toolTip).toHaveAccessibleName("Set value");
+  });
 
   it("onchange is linked to state and state linked to input value(three way binding)", async () => {
     userEvent.setup();
@@ -60,7 +72,7 @@ describe("renders component correctly", () => {
     // the input element has type-number so we should expect it to be number
     expect(inpTEl).toHaveValue(234);
   });
-  it.only("onchange is linked to setstate, the set button accepting one state and setting another state reulting in h1 update", async () => {
+  it.skip("onchange is linked to setstate, the set button accepting one state and setting another state reulting in h1 update", async () => {
     userEvent.setup();
     render(<Counter />);
     const inpTEl = screen.getByRole("spinbutton");
@@ -71,5 +83,4 @@ describe("renders component correctly", () => {
     expect(h1Elmt).toHaveTextContent("234");
   });
   //   userEvent.clear , userEvent.selectOptions and unselect
-  //
 });
