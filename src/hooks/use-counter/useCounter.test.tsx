@@ -1,5 +1,6 @@
 import { useCounter } from "./useCounter";
-import { renderHook } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
+
 // render method expects jsx component, it doesnt work with hook as it doent return jsx
 // so we use renderHook for hooks
 describe("renders component correctly", () => {
@@ -13,10 +14,19 @@ describe("renders component correctly", () => {
     });
     expect(result.current.count).toBe(10);
   });
-  it.only("testing increment function", () => {
+  it("testing decrement function", () => {
     const { result } = renderHook(useCounter);
-    result.current.decrement();
+    // testing state updates when it is not in jsx use act as a wrapper
+    act(() => result.current.decrement());
     expect(result.current.count).toBe(-1);
+    // act(() => result.current.increment());
+    // expect(result.current.count).toBe(0);
+  });
+  it("testing increment function", () => {
+    const { result } = renderHook(useCounter);
+    // testing state updates when it is not in jsx use act as a wrapper
+    act(() => result.current.increment());
+    expect(result.current.count).toBe(1);
   });
   //   tests for incremnet and decrement
 });
